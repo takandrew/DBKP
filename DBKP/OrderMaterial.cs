@@ -60,6 +60,8 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
                 MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
+                MainForm mainForm = new MainForm();
+                mainForm.Activate();
                 return;
             }
             else

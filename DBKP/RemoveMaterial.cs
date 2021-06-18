@@ -63,6 +63,8 @@ namespace DBKP
                     if (connection.State != ConnectionState.Closed)
                         connection.Close();
                     MessageBox.Show("Списание успешно выполнено", "Списание позиций");
+                    MainForm mainForm = new MainForm();
+                    mainForm.Activate();
                     return;
                 }
                 else

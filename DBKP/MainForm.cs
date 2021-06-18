@@ -89,7 +89,7 @@ namespace DBKP
             TableName.Text = "Номенклатура";
         }
 
-        public void DisplayTableConsist_Click(object sender, EventArgs e)
+        private void DisplayTableConsist_Click(object sender, EventArgs e)
         {
             MySqlCommand command = new MySqlCommand("SELECT * FROM consist");
             TableGridView.Rows.Clear();
@@ -185,6 +185,16 @@ namespace DBKP
                 removeMaterial.Show();
                 removeMaterial.Focus();
             }
+        }
+
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            if (TableName.Text == "РЦ")
+                DisplayTableFactory_Click(null, null);
+            else if (TableName.Text == "Запасы")
+                DisplayTableConsist_Click(null, null);
+            else if (TableName.Text == "Заказы")
+                DisplayTableOrder_Click(null, null);
         }
     }
 }

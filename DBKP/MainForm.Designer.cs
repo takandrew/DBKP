@@ -174,6 +174,7 @@ namespace DBKP
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
             this.Text = "БД ";
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.TableGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

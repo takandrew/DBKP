@@ -50,6 +50,8 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
                 MessageBox.Show("Изменения успешно внесены", "Управление РЦ");
+                MainForm mainForm = new MainForm();
+                mainForm.Activate();
                 return;
             }
             else
