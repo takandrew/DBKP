@@ -1,0 +1,252 @@
+
+CREATE DATABASE DatabaseKP;
+
+Use DatabaseKP;
+
+CREATE TABLE `Order`
+(
+  `Ord_ID` Int NOT NULL,
+  `Ord_Status` Char(20) NOT NULL,
+  `Ord_Date` Datetime NOT NULL,
+  `Ord_Quantity` Int NOT NULL,
+  `Mat_ID` Int NOT NULL
+)
+;
+
+CREATE INDEX `IX_Relationship8` ON `Order` (`Mat_ID`)
+;
+
+ALTER TABLE `Order` ADD PRIMARY KEY (`Ord_ID`)
+;
+
+CREATE TABLE `Material`
+(
+  `Mat_ID` Int NOT NULL,
+  `Mat_Description` Char(40) NOT NULL,
+  `Spec_ID` Int,
+  `Map_ID` Int,
+  `OrdSpec_ID` Int
+)
+;
+
+CREATE INDEX `IX_Relationship2` ON `Material` (`Spec_ID`)
+;
+
+CREATE INDEX `IX_Relationship5` ON `Material` (`Map_ID`)
+;
+
+CREATE INDEX `IX_Relationship13` ON `Material` (`OrdSpec_ID`)
+;
+
+ALTER TABLE `Material` ADD PRIMARY KEY (`Mat_ID`)
+;
+
+CREATE TABLE `Storage`
+(
+  `St_ID` Int NOT NULL,
+  `St_Description` Char(40) NOT NULL
+)
+;
+
+ALTER TABLE `Storage` ADD PRIMARY KEY (`St_ID`)
+;
+
+CREATE TABLE `Consist`
+(
+  `Mat_ID` Int NOT NULL,
+  `St_ID` Int NOT NULL,
+  `Cont_Quantity` Int NOT NULL
+)
+;
+
+ALTER TABLE `Consist` ADD PRIMARY KEY (`Mat_ID`, `St_ID`)
+;
+
+CREATE TABLE `Factory`
+(
+  `Fact_ID` Int NOT NULL,
+  `Fact_Status` Char(20) NOT NULL,
+  `Fact_Time` Time NOT NULL
+)
+;
+
+ALTER TABLE `Factory` ADD PRIMARY KEY (`Fact_ID`)
+;
+
+CREATE TABLE `Specification`
+(
+  `Spec_ID` Int NOT NULL,
+  `Spec_Description` Char(40) NOT NULL
+)
+;
+
+ALTER TABLE `Specification` ADD PRIMARY KEY (`Spec_ID`)
+;
+
+CREATE TABLE `Specification_Structure`
+(
+  `SpecStruc_ID` Int NOT NULL,
+  `Operation_ID` Int NOT NULL,
+  `SpecStruc_Quantity` Int NOT NULL,
+  `Spec_ID` Int NOT NULL,
+  `Mat_ID` Int NOT NULL
+)
+;
+
+CREATE INDEX `IX_Relationship4` ON `Specification_Structure` (`Mat_ID`)
+;
+
+ALTER TABLE `Specification_Structure` ADD PRIMARY KEY (`SpecStruc_ID`, `Spec_ID`)
+;
+
+CREATE TABLE `Technological_map`
+(
+  `Map_ID` Int NOT NULL,
+  `Map_Description` Char(40) NOT NULL
+)
+;
+
+ALTER TABLE `Technological_map` ADD PRIMARY KEY (`Map_ID`)
+;
+
+CREATE TABLE `Map_Structure`
+(
+  `Oper_ID` Int NOT NULL,
+  `Oper_Time` Time NOT NULL,
+  `Next_Oper_ID` Int NOT NULL,
+  `Map_ID` Int NOT NULL,
+  `Fact_ID` Int NOT NULL
+)
+;
+
+ALTER TABLE `Map_Structure` ADD PRIMARY KEY (`Oper_ID`, `Map_ID`, `Fact_ID`)
+;
+
+CREATE TABLE `Work_Log`
+(
+  `Note_Num` Int NOT NULL,
+  `Ord_ID` Int NOT NULL,
+  `Oper_ID` Int NOT NULL,
+  `Map_ID` Int NOT NULL,
+  `Fact_ID` Int,
+  `Mat_ID` Int NOT NULL,
+  `Work_Time` Time NOT NULL,
+  `Exit_Quantity` Int NOT NULL
+)
+;
+
+CREATE INDEX `IX_recorded in` ON `Work_Log` (`Ord_ID`)
+;
+
+CREATE INDEX `IX_Forms` ON `Work_Log` (`Oper_ID`, `Map_ID`, `Fact_ID`)
+;
+
+CREATE INDEX `IX_Relationship2` ON `Work_Log` (`Mat_ID`)
+;
+
+ALTER TABLE `Work_Log` ADD PRIMARY KEY (`Note_Num`)
+;
+
+CREATE TABLE `Order_Specification`
+(
+  `OrdSpec_ID` Int NOT NULL,
+  `OrdSpec_Description` Char(40) NOT NULL,
+  `Spec_ID` Int
+)
+;
+
+CREATE INDEX `IX_Relationship9` ON `Order_Specification` (`Spec_ID`)
+;
+
+ALTER TABLE `Order_Specification` ADD PRIMARY KEY (`OrdSpec_ID`)
+;
+
+CREATE TABLE `OrdSpec_Structure`
+(
+  `OrdSpecStruc_ID` Int NOT NULL,
+  `Operation_ID` Int NOT NULL,
+  `OrdSpecStruc_Quantity` Int NOT NULL,
+  `OrdSpec_ID` Int NOT NULL,
+  `Mat_ID` Int NOT NULL
+)
+;
+
+CREATE INDEX `IX_Relationship5` ON `OrdSpec_Structure` (`Mat_ID`)
+;
+
+ALTER TABLE `OrdSpec_Structure` ADD PRIMARY KEY (`OrdSpecStruc_ID`, `OrdSpec_ID`)
+;
+
+CREATE TABLE `Used_Log`
+(
+  `Note_Num` Int NOT NULL,
+  `Ord_ID` Int NOT NULL,
+  `Mat_ID` Int NOT NULL,
+  `Used_Quantity` Int NOT NULL
+)
+;
+
+CREATE INDEX `IX_Relationship1` ON `Used_Log` (`Ord_ID`)
+;
+
+CREATE INDEX `IX_Relationship2` ON `Used_Log` (`Mat_ID`)
+;
+
+ALTER TABLE `Used_Log` ADD PRIMARY KEY (`Note_Num`)
+;
+
+ALTER TABLE `Consist` ADD CONSTRAINT `СontainsOf` FOREIGN KEY (`Mat_ID`) REFERENCES `Material` (`Mat_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Consist` ADD CONSTRAINT `Contains_of` FOREIGN KEY (`St_ID`) REFERENCES `Storage` (`St_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Material` ADD CONSTRAINT `Spec_uses` FOREIGN KEY (`Spec_ID`) REFERENCES `Specification` (`Spec_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Specification_Structure` ADD CONSTRAINT `Includes_spec` FOREIGN KEY (`Spec_ID`) REFERENCES `Specification` (`Spec_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Specification_Structure` ADD CONSTRAINT `Mat_Comp_uses` FOREIGN KEY (`Mat_ID`) REFERENCES `Material` (`Mat_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Material` ADD CONSTRAINT `TM_uses` FOREIGN KEY (`Map_ID`) REFERENCES `Technological_map` (`Map_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Map_Structure` ADD CONSTRAINT `Includes_oper` FOREIGN KEY (`Map_ID`) REFERENCES `Technological_map` (`Map_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Map_Structure` ADD CONSTRAINT `Using` FOREIGN KEY (`Fact_ID`) REFERENCES `Factory` (`Fact_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Order` ADD CONSTRAINT `Contains` FOREIGN KEY (`Mat_ID`) REFERENCES `Material` (`Mat_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Work_Log` ADD CONSTRAINT `recorded in` FOREIGN KEY (`Ord_ID`) REFERENCES `Order` (`Ord_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `OrdSpec_Structure` ADD CONSTRAINT `Includes` FOREIGN KEY (`OrdSpec_ID`) REFERENCES `Order_Specification` (`OrdSpec_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `OrdSpec_Structure` ADD CONSTRAINT `Mat_Comp_uses ordscpec` FOREIGN KEY (`Mat_ID`) REFERENCES `Material` (`Mat_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Order_Specification` ADD CONSTRAINT `Subdivided into` FOREIGN KEY (`Spec_ID`) REFERENCES `Specification` (`Spec_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Work_Log` ADD CONSTRAINT `Forms` FOREIGN KEY (`Oper_ID`, `Map_ID`, `Fact_ID`) REFERENCES `Map_Structure` (`Oper_ID`, `Map_ID`, `Fact_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Material` ADD CONSTRAINT `uses` FOREIGN KEY (`OrdSpec_ID`) REFERENCES `Order_Specification` (`OrdSpec_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Used_Log` ADD CONSTRAINT `recorded in ord` FOREIGN KEY (`Ord_ID`) REFERENCES `Order` (`Ord_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Used_Log` ADD CONSTRAINT `recorded in mat` FOREIGN KEY (`Mat_ID`) REFERENCES `Material` (`Mat_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+ALTER TABLE `Work_Log` ADD CONSTRAINT `recorded in mat work` FOREIGN KEY (`Mat_ID`) REFERENCES `Material` (`Mat_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+;
+
+
