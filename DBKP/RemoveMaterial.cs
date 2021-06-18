@@ -11,17 +11,18 @@ using MySql.Data.MySqlClient;
 
 namespace DBKP
 {
-    public partial class OrderMaterial : Form
+    public partial class RemoveMaterial : Form
     {
-        public OrderMaterial()
+        public RemoveMaterial()
         {
             InitializeComponent();
+            MaximizeBox = false;
         }
 
         MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=root;database=databasekp");
         MySqlDataReader reader;
 
-        private void MakeOrderMaterialButton_Click(object sender, EventArgs e)
+        private void RemovingMaterialButton_Click(object sender, EventArgs e)
         {
             MySqlCommand command = new MySqlCommand();
             command.CommandText = "Select * from consist";
@@ -51,16 +52,24 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "UPDATE consist set Cont_Quantity = @quantity where Mat_ID = @id";
-                command.Parameters.Add("@quantity", MySqlDbType.Int32).Value = quantityMat+QuantityUpDown.Value;
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-                MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
-                return;
+                if (quantityMat >= QuantityUpDown.Value)
+                {
+                    command.CommandText = "UPDATE consist set Cont_Quantity = @quantity where Mat_ID = @id";
+                    command.Parameters.Add("@quantity", MySqlDbType.Int32).Value = quantityMat - QuantityUpDown.Value;
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
+                    command.Connection = connection;
+                    command.ExecuteNonQuery();
+                    if (connection.State != ConnectionState.Closed)
+                        connection.Close();
+                    MessageBox.Show("Списание успешно выполнено", "Списание позиций");
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("На складе содержится меньшее количество номенклатуры, чем требуется списать", "Ошибка!");
+                    return;
+                }
             }
             else
             {

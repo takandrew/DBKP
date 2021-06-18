@@ -38,6 +38,8 @@ namespace DBKP
             this.MakeOrder = new System.Windows.Forms.Button();
             this.DisplayTableOrder = new System.Windows.Forms.Button();
             this.OrderMaterialButton = new System.Windows.Forms.Button();
+            this.ManageFactoryButton = new System.Windows.Forms.Button();
+            this.RemoveMaterialButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.TableGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,11 +135,33 @@ namespace DBKP
             this.OrderMaterialButton.UseVisualStyleBackColor = true;
             this.OrderMaterialButton.Click += new System.EventHandler(this.OrderMaterialButton_Click);
             // 
+            // ManageFactoryButton
+            // 
+            this.ManageFactoryButton.Location = new System.Drawing.Point(73, 157);
+            this.ManageFactoryButton.Name = "ManageFactoryButton";
+            this.ManageFactoryButton.Size = new System.Drawing.Size(428, 33);
+            this.ManageFactoryButton.TabIndex = 10;
+            this.ManageFactoryButton.Text = "Управление РЦ";
+            this.ManageFactoryButton.UseVisualStyleBackColor = true;
+            this.ManageFactoryButton.Click += new System.EventHandler(this.ManageFactoryButton_Click);
+            // 
+            // RemoveMaterialButton
+            // 
+            this.RemoveMaterialButton.Location = new System.Drawing.Point(73, 118);
+            this.RemoveMaterialButton.Name = "RemoveMaterialButton";
+            this.RemoveMaterialButton.Size = new System.Drawing.Size(428, 33);
+            this.RemoveMaterialButton.TabIndex = 11;
+            this.RemoveMaterialButton.Text = "Списать позиции";
+            this.RemoveMaterialButton.UseVisualStyleBackColor = true;
+            this.RemoveMaterialButton.Click += new System.EventHandler(this.RemoveMaterialButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1125, 507);
+            this.Controls.Add(this.RemoveMaterialButton);
+            this.Controls.Add(this.ManageFactoryButton);
             this.Controls.Add(this.OrderMaterialButton);
             this.Controls.Add(this.DisplayTableOrder);
             this.Controls.Add(this.MakeOrder);
@@ -167,6 +191,8 @@ namespace DBKP
         private System.Windows.Forms.Button MakeOrder;
         private System.Windows.Forms.Button DisplayTableOrder;
         private System.Windows.Forms.Button OrderMaterialButton;
+        private System.Windows.Forms.Button ManageFactoryButton;
+        private System.Windows.Forms.Button RemoveMaterialButton;
     }
 }
 

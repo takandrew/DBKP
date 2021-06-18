@@ -160,5 +160,31 @@ namespace DBKP
                 orderMaterial.Focus();
             }
         }
+
+        private void ManageFactoryButton_Click(object sender, EventArgs e)
+        {
+            DisplayTableFactory_Click(null, null);
+            ManageFactory manageFactory = new ManageFactory();
+            if (manageFactory == null || manageFactory.IsDisposed)
+                manageFactory.Show();
+            else
+            {
+                manageFactory.Show();
+                manageFactory.Focus();
+            }
+        }
+
+        private void RemoveMaterialButton_Click(object sender, EventArgs e)
+        {
+            DisplayTableConsist_Click(null, null);
+            RemoveMaterial removeMaterial = new RemoveMaterial();
+            if (removeMaterial == null || removeMaterial.IsDisposed)
+                removeMaterial.Show();
+            else
+            {
+                removeMaterial.Show();
+                removeMaterial.Focus();
+            }
+        }
     }
 }
