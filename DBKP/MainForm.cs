@@ -112,7 +112,8 @@ namespace DBKP
         }
 
         private void MakeOrder_Click(object sender, EventArgs e)
-        { 
+        {
+            DisplayTableOrder_Click(null, null);
             MakeOrder makeOrder = new MakeOrder();
             if (makeOrder == null || makeOrder.IsDisposed)
                 makeOrder.Show();

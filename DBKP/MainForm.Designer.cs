@@ -58,7 +58,7 @@ namespace DBKP
             // 
             // DisplayTableStorage
             // 
-            this.DisplayTableStorage.Location = new System.Drawing.Point(73, 283);
+            this.DisplayTableStorage.Location = new System.Drawing.Point(73, 334);
             this.DisplayTableStorage.Name = "DisplayTableStorage";
             this.DisplayTableStorage.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableStorage.TabIndex = 1;
@@ -77,7 +77,7 @@ namespace DBKP
             // 
             // DisplayTableFactory
             // 
-            this.DisplayTableFactory.Location = new System.Drawing.Point(73, 322);
+            this.DisplayTableFactory.Location = new System.Drawing.Point(73, 373);
             this.DisplayTableFactory.Name = "DisplayTableFactory";
             this.DisplayTableFactory.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableFactory.TabIndex = 4;
@@ -87,7 +87,7 @@ namespace DBKP
             // 
             // DisplayTableMaterial
             // 
-            this.DisplayTableMaterial.Location = new System.Drawing.Point(73, 361);
+            this.DisplayTableMaterial.Location = new System.Drawing.Point(73, 412);
             this.DisplayTableMaterial.Name = "DisplayTableMaterial";
             this.DisplayTableMaterial.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableMaterial.TabIndex = 5;
@@ -97,7 +97,7 @@ namespace DBKP
             // 
             // DisplayTableConsist
             // 
-            this.DisplayTableConsist.Location = new System.Drawing.Point(73, 400);
+            this.DisplayTableConsist.Location = new System.Drawing.Point(73, 451);
             this.DisplayTableConsist.Name = "DisplayTableConsist";
             this.DisplayTableConsist.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableConsist.TabIndex = 6;
@@ -117,7 +117,7 @@ namespace DBKP
             // 
             // DisplayTableOrder
             // 
-            this.DisplayTableOrder.Location = new System.Drawing.Point(73, 244);
+            this.DisplayTableOrder.Location = new System.Drawing.Point(73, 295);
             this.DisplayTableOrder.Name = "DisplayTableOrder";
             this.DisplayTableOrder.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableOrder.TabIndex = 8;

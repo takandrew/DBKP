@@ -18,6 +18,7 @@ namespace DBKP
             InitializeComponent();
             ShowMaterial();
             MaximizeBox = false;
+            this.ClientSize = new System.Drawing.Size(429, 228);
         }
 
         MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=root;database=databasekp");
@@ -25,7 +26,7 @@ namespace DBKP
 
         void ShowMaterial()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM material where material.Mat_ID in (select consist.Mat_ID from consist where St_ID = 2 or St_ID = 3)");
+            MySqlCommand command = new MySqlCommand("SELECT * FROM material where material.Mat_ID in (select consist.Mat_ID from consist where St_ID = 2 or St_ID = 3) and material.ordspec_id in (1, 2, 3, 4, 5)");
             MaterialGridView.Rows.Clear();
             MaterialGridView.Columns.Clear();
             if (connection.State == ConnectionState.Closed)
@@ -44,6 +45,7 @@ namespace DBKP
 
         private void MakeOrderButton_Click(object sender, EventArgs e)
         {
+            this.ClientSize = new System.Drawing.Size(429, 228);
             bool idHave = false;
             for (int i = 0; i < MaterialGridView.Rows.Count; i++)
             {
@@ -80,22 +82,74 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "INSERT INTO `order` VALUES (@id, @status, @dateTime, @quantity, @material)";
-                command.Parameters.Add("@id", MySqlDbType.Int32).Value = orderCount.Count+1;
-                command.Parameters.Add("@status", MySqlDbType.VarChar).Value = "Создан";
-                command.Parameters.Add("@quantity", MySqlDbType.Int32).Value = QuantityUpDown.Value;
-                command.Parameters.Add("@dateTime", MySqlDbType.DateTime).Value = DateTime.Now;
-                command.Parameters.Add("@material", MySqlDbType.Int32).Value = MaterialUpDown.Value;
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-                MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
-                MainForm mainForm = new MainForm();
-                mainForm.Activate();
-                return;
+                if (MessageBox.Show("Вы желаете оформить заказ на стандартной спецификации? Нажмите «Нет», если желаете изменить спецификацию.", "Выбор спецификации", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    command.CommandText = "INSERT INTO `order` VALUES (@id, @status, @dateTime, @quantity, @material)";
+                    command.Parameters.Add("@id", MySqlDbType.Int32).Value = orderCount.Count + 1;
+                    command.Parameters.Add("@status", MySqlDbType.VarChar).Value = "Создан";
+                    command.Parameters.Add("@quantity", MySqlDbType.Int32).Value = QuantityUpDown.Value;
+                    command.Parameters.Add("@dateTime", MySqlDbType.DateTime).Value = DateTime.Now;
+                    command.Parameters.Add("@material", MySqlDbType.Int32).Value = MaterialUpDown.Value;
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
+                    command.Connection = connection;
+                    command.ExecuteNonQuery();
+                    if (connection.State != ConnectionState.Closed)
+                        connection.Close();
+                    MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
+                    MainForm mainForm = new MainForm();
+                    mainForm.Activate();
+                    return;
+                }
+                else
+                {
+                    this.ClientSize = new System.Drawing.Size(429, 500);
+                    if (MaterialUpDown.Value == 7)
+                    {
+                        ModifiedUpDown1.Enabled = true; ModifiedUpDown4.Enabled = false;
+                        ModifiedUpDown2.Enabled = true; ModifiedUpDown5.Enabled = false;
+                        ModifiedUpDown3.Enabled = true; ModifiedUpDown6.Enabled = false;
+                        ModifiedLabel1.Text = "Камера"; ModifiedLabel4.Text = "";
+                        ModifiedLabel2.Text = "Дверка"; ModifiedLabel5.Text = "";
+                        ModifiedLabel3.Text = "Вращающийся столик"; ModifiedLabel6.Text = "";
+                    }
+                    else if (MaterialUpDown.Value == 8)
+                    {
+                        ModifiedUpDown1.Enabled = true; ModifiedUpDown4.Enabled = false;
+                        ModifiedUpDown2.Enabled = true; ModifiedUpDown5.Enabled = false;
+                        ModifiedUpDown3.Enabled = false; ModifiedUpDown6.Enabled = false;
+                        ModifiedLabel1.Text = "Щит из пластика"; ModifiedLabel4.Text = "";
+                        ModifiedLabel2.Text = "Труба"; ModifiedLabel5.Text = "";
+                        ModifiedLabel3.Text = ""; ModifiedLabel6.Text = "";
+                    }
+                    else if (MaterialUpDown.Value == 12)
+                    {
+                        ModifiedUpDown1.Enabled = true; ModifiedUpDown4.Enabled = true;
+                        ModifiedUpDown2.Enabled = true; ModifiedUpDown5.Enabled = true;
+                        ModifiedUpDown3.Enabled = true; ModifiedUpDown6.Enabled = true;
+                        ModifiedLabel1.Text = "Трансформатор"; ModifiedLabel4.Text = "Провода";
+                        ModifiedLabel2.Text = "Магнетрон"; ModifiedLabel5.Text = "Конденсатор";
+                        ModifiedLabel3.Text = "Лампа"; ModifiedLabel6.Text = "Резистор";
+                    }
+                    else if (MaterialUpDown.Value == 18)
+                    {
+                        ModifiedUpDown1.Enabled = true; ModifiedUpDown4.Enabled = false;
+                        ModifiedUpDown2.Enabled = true; ModifiedUpDown5.Enabled = false;
+                        ModifiedUpDown3.Enabled = false; ModifiedUpDown6.Enabled = false;
+                        ModifiedLabel1.Text = "Двигатель вентилятора"; ModifiedLabel4.Text = "";
+                        ModifiedLabel2.Text = "Вентилятор"; ModifiedLabel5.Text = "";
+                        ModifiedLabel3.Text = ""; ModifiedLabel6.Text = "";
+                    }
+                    else if (MaterialUpDown.Value == 9)
+                    {
+                        ModifiedUpDown1.Enabled = true; ModifiedUpDown4.Enabled = true;
+                        ModifiedUpDown2.Enabled = true; ModifiedUpDown5.Enabled = false;
+                        ModifiedUpDown3.Enabled = true; ModifiedUpDown6.Enabled = false;
+                        ModifiedLabel1.Text = "Корпус"; ModifiedLabel4.Text = "Система охлаждения";
+                        ModifiedLabel2.Text = "Волновод"; ModifiedLabel5.Text = "";
+                        ModifiedLabel3.Text = "Электрическое оборудование"; ModifiedLabel6.Text = "";
+                    }
+                }
             }
             else
             {
