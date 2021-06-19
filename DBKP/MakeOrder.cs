@@ -165,32 +165,68 @@ namespace DBKP
 
         private void MakeOrderModifiedButton_Click(object sender, EventArgs e)
         {
+            MySqlCommand command = new MySqlCommand("select * from ordspec_structure GROUP by OrdSpec_ID");
+            if (connection.State == ConnectionState.Closed)
+                connection.Open();
+            command.Connection = connection;
+            List<string> specCount = new List<string>();
+            reader = command.ExecuteReader();
+            while (reader.Read())
+                specCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
+            reader.Close();
+            if (connection.State != ConnectionState.Closed)
+                connection.Close();
+
+            command.CommandText = "select * from ordspec_structure";
+            if (connection.State == ConnectionState.Closed)
+                connection.Open();
+            command.Connection = connection;
+            List<string> specStrucCount = new List<string>();
+            reader = command.ExecuteReader();
+            while (reader.Read())
+                specStrucCount.Add(reader.GetInt32("OrdSpecStruc_ID").ToString());
+            reader.Close();
+            if (connection.State != ConnectionState.Closed)
+                connection.Close();
+
+            command.CommandText = "select * from material";
+            if (connection.State == ConnectionState.Closed)
+                connection.Open();
+            command.Connection = connection;
+            List<string> materialCount = new List<string>();
+            reader = command.ExecuteReader();
+            while (reader.Read())
+                materialCount.Add(reader.GetInt32("Mat_ID").ToString());
+            reader.Close();
+            if (connection.State != ConnectionState.Closed)
+                connection.Close();
+
+            command.CommandText = "select * from order_specification";
+            if (connection.State == ConnectionState.Closed)
+                connection.Open();
+            command.Connection = connection;
+            List<string> ordspecCount = new List<string>();
+            reader = command.ExecuteReader();
+            while (reader.Read())
+                ordspecCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
+            reader.Close();
+            if (connection.State != ConnectionState.Closed)
+                connection.Close();
+
+            command.CommandText = "Select * from `order`";
+            if (connection.State == ConnectionState.Closed)
+                connection.Open();
+            command.Connection = connection;
+            reader = command.ExecuteReader();
+            List<string> orderCount = new List<string>();
+            while (reader.Read())
+                orderCount.Add(reader.GetInt32("Ord_ID").ToString());
+            reader.Close();
+            if (connection.State != ConnectionState.Closed)
+                connection.Close();
+
             if (MaterialUpDown.Value == 7)
             {
-                MySqlCommand command = new MySqlCommand("select * from ordspec_structure GROUP by OrdSpec_ID");
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from ordspec_structure";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specStrucCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specStrucCount.Add(reader.GetInt32("OrdSpecStruc_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
@@ -225,30 +261,6 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "select * from material";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> materialCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    materialCount.Add(reader.GetInt32("Mat_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from order_specification";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> ordspecCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    ordspecCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
                 command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count+1;
                 command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Корпус";
@@ -271,18 +283,6 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "Select * from `order`";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                reader = command.ExecuteReader();
-                List<string> orderCount = new List<string>();
-                while (reader.Read())
-                    orderCount.Add(reader.GetInt32("Ord_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "INSERT INTO `order` VALUES (@idorder, @status, @dateTime, @quantity, @material)";
                 command.Parameters.Add("@idorder", MySqlDbType.Int32).Value = orderCount.Count + 1;
                 command.Parameters.Add("@status", MySqlDbType.VarChar).Value = "Создан";
@@ -295,37 +295,9 @@ namespace DBKP
                 command.ExecuteNonQuery();
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
-                MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
-                MainForm mainForm = new MainForm();
-                mainForm.Activate();
-                return;
             }
             else if (MaterialUpDown.Value == 8)
             {
-                MySqlCommand command = new MySqlCommand("select * from ordspec_structure GROUP by OrdSpec_ID");
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from ordspec_structure";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specStrucCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specStrucCount.Add(reader.GetInt32("OrdSpecStruc_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
@@ -346,30 +318,6 @@ namespace DBKP
                     connection.Open();
                 command.Connection = connection;
                 command.ExecuteNonQuery();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from material";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> materialCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    materialCount.Add(reader.GetInt32("Mat_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from order_specification";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> ordspecCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    ordspecCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
@@ -395,18 +343,6 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "Select * from `order`";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                reader = command.ExecuteReader();
-                List<string> orderCount = new List<string>();
-                while (reader.Read())
-                    orderCount.Add(reader.GetInt32("Ord_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "INSERT INTO `order` VALUES (@idorder, @status, @dateTime, @quantity, @material)";
                 command.Parameters.Add("@idorder", MySqlDbType.Int32).Value = orderCount.Count + 1;
                 command.Parameters.Add("@status", MySqlDbType.VarChar).Value = "Создан";
@@ -419,37 +355,9 @@ namespace DBKP
                 command.ExecuteNonQuery();
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
-                MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
-                MainForm mainForm = new MainForm();
-                mainForm.Activate();
-                return;
             }
             else if (MaterialUpDown.Value == 12)
             {
-                MySqlCommand command = new MySqlCommand("select * from ordspec_structure GROUP by OrdSpec_ID");
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from ordspec_structure";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specStrucCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specStrucCount.Add(reader.GetInt32("OrdSpecStruc_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
@@ -517,30 +425,6 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "select * from material";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> materialCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    materialCount.Add(reader.GetInt32("Mat_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from order_specification";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> ordspecCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    ordspecCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
                 command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
                 command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Электрическое оборудование";
@@ -563,18 +447,6 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "Select * from `order`";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                reader = command.ExecuteReader();
-                List<string> orderCount = new List<string>();
-                while (reader.Read())
-                    orderCount.Add(reader.GetInt32("Ord_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "INSERT INTO `order` VALUES (@idorder, @status, @dateTime, @quantity, @material)";
                 command.Parameters.Add("@idorder", MySqlDbType.Int32).Value = orderCount.Count + 1;
                 command.Parameters.Add("@status", MySqlDbType.VarChar).Value = "Создан";
@@ -587,37 +459,9 @@ namespace DBKP
                 command.ExecuteNonQuery();
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
-                MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
-                MainForm mainForm = new MainForm();
-                mainForm.Activate();
-                return;
             }
             else if (MaterialUpDown.Value == 18)
             {
-                MySqlCommand command = new MySqlCommand("select * from ordspec_structure GROUP by OrdSpec_ID");
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from ordspec_structure";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specStrucCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specStrucCount.Add(reader.GetInt32("OrdSpecStruc_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
@@ -638,30 +482,6 @@ namespace DBKP
                     connection.Open();
                 command.Connection = connection;
                 command.ExecuteNonQuery();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from material";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> materialCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    materialCount.Add(reader.GetInt32("Mat_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from order_specification";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> ordspecCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    ordspecCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
@@ -687,18 +507,6 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "Select * from `order`";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                reader = command.ExecuteReader();
-                List<string> orderCount = new List<string>();
-                while (reader.Read())
-                    orderCount.Add(reader.GetInt32("Ord_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "INSERT INTO `order` VALUES (@idorder, @status, @dateTime, @quantity, @material)";
                 command.Parameters.Add("@idorder", MySqlDbType.Int32).Value = orderCount.Count + 1;
                 command.Parameters.Add("@status", MySqlDbType.VarChar).Value = "Создан";
@@ -711,37 +519,9 @@ namespace DBKP
                 command.ExecuteNonQuery();
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
-                MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
-                MainForm mainForm = new MainForm();
-                mainForm.Activate();
-                return;
             }
             else if (MaterialUpDown.Value == 9)
             {
-                MySqlCommand command = new MySqlCommand("select * from ordspec_structure GROUP by OrdSpec_ID");
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from ordspec_structure";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> specStrucCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    specStrucCount.Add(reader.GetInt32("OrdSpecStruc_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
@@ -787,30 +567,6 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "select * from material";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> materialCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    materialCount.Add(reader.GetInt32("Mat_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "select * from order_specification";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                List<string> ordspecCount = new List<string>();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                    ordspecCount.Add(reader.GetInt32("OrdSpec_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
                 command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
                 command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Микроволновая печь";
@@ -833,18 +589,6 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "Select * from `order`";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                reader = command.ExecuteReader();
-                List<string> orderCount = new List<string>();
-                while (reader.Read())
-                    orderCount.Add(reader.GetInt32("Ord_ID").ToString());
-                reader.Close();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "INSERT INTO `order` VALUES (@idorder, @status, @dateTime, @quantity, @material)";
                 command.Parameters.Add("@idorder", MySqlDbType.Int32).Value = orderCount.Count + 1;
                 command.Parameters.Add("@status", MySqlDbType.VarChar).Value = "Создан";
@@ -857,11 +601,11 @@ namespace DBKP
                 command.ExecuteNonQuery();
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
-                MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
-                MainForm mainForm = new MainForm();
-                mainForm.Activate();
-                return;
             }
+            MessageBox.Show("Заказ успешно оформлен", "Оформление заказа");
+            MainForm mainForm = new MainForm();
+            mainForm.Activate();
+            return;
         }
     }
 }
