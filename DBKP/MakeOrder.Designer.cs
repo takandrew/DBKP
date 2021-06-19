@@ -133,6 +133,7 @@ namespace DBKP
             this.MakeOrderModifiedButton.TabIndex = 6;
             this.MakeOrderModifiedButton.Text = "Оформить заказ на измененной спецификации";
             this.MakeOrderModifiedButton.UseVisualStyleBackColor = true;
+            this.MakeOrderModifiedButton.Click += new System.EventHandler(this.MakeOrderModifiedButton_Click);
             // 
             // ModifiedUpDown1
             // 
