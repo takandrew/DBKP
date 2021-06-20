@@ -91,7 +91,7 @@ namespace DBKP
             this.Controls.Add(this.label1);
             this.Controls.Add(this.MaterialIDUpDown);
             this.Name = "RemoveMaterial";
-            this.Text = "RemoveMaterial";
+            this.Text = "Списать позиции";
             ((System.ComponentModel.ISupportInitialize)(this.MaterialIDUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.QuantityUpDown)).EndInit();
             this.ResumeLayout(false);

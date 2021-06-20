@@ -197,5 +197,18 @@ namespace DBKP
             else if (TableName.Text == "Заказы")
                 DisplayTableOrder_Click(null, null);
         }
+
+        private void FactoryOrderButton_Click(object sender, EventArgs e)
+        {
+            DisplayTableOrder_Click(null, null);
+            FactoryOrder factoryOrder = new FactoryOrder();
+            if (factoryOrder == null || factoryOrder.IsDisposed)
+                factoryOrder.Show();
+            else
+            {
+                factoryOrder.Show();
+                factoryOrder.Focus();
+            }
+        }
     }
 }

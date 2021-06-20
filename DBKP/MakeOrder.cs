@@ -227,6 +227,17 @@ namespace DBKP
 
             if (MaterialUpDown.Value == 7)
             {
+                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
+                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
+                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Корпус";
+                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 2;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
@@ -234,7 +245,7 @@ namespace DBKP
                 command.Parameters.Add("@quantity1", MySqlDbType.Int32).Value = ModifiedUpDown1.Value;
                 command.Parameters.Add("@quantity2", MySqlDbType.Int32).Value = ModifiedUpDown2.Value;
                 command.Parameters.Add("@quantity3", MySqlDbType.Int32).Value = ModifiedUpDown3.Value;
-                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count;
+                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count + 1;
                 command.Parameters.Add("@matID1", MySqlDbType.Int32).Value = 4;
                 command.Parameters.Add("@matID2", MySqlDbType.Int32).Value = 5;
                 command.Parameters.Add("@matID3", MySqlDbType.Int32).Value = 6;
@@ -254,17 +265,6 @@ namespace DBKP
                     connection.Close();
 
                 command.CommandText = "insert into ordspec_structure values (@id3, 3, @quantity3, @specID, @matID3)";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
-                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count+1;
-                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Корпус";
-                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 2;
                 if (connection.State == ConnectionState.Closed)
                     connection.Open();
                 command.Connection = connection;
@@ -298,12 +298,23 @@ namespace DBKP
             }
             else if (MaterialUpDown.Value == 8)
             {
+                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
+                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
+                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Волновод";
+                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 3;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
                 command.Parameters.Add("@quantity1", MySqlDbType.Int32).Value = ModifiedUpDown1.Value;
                 command.Parameters.Add("@quantity2", MySqlDbType.Int32).Value = ModifiedUpDown2.Value;
-                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count;
+                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count + 1;
                 command.Parameters.Add("@matID1", MySqlDbType.Int32).Value = 10;
                 command.Parameters.Add("@matID2", MySqlDbType.Int32).Value = 11;
                 if (connection.State == ConnectionState.Closed)
@@ -314,17 +325,6 @@ namespace DBKP
                     connection.Close();
 
                 command.CommandText = "insert into ordspec_structure values (@id2, 2, @quantity2, @specID, @matID2)";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
-                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
-                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Волновод";
-                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 3;
                 if (connection.State == ConnectionState.Closed)
                     connection.Open();
                 command.Connection = connection;
@@ -358,6 +358,17 @@ namespace DBKP
             }
             else if (MaterialUpDown.Value == 12)
             {
+                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
+                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
+                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Электрическое оборудование";
+                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 4;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
@@ -371,7 +382,7 @@ namespace DBKP
                 command.Parameters.Add("@quantity4", MySqlDbType.Int32).Value = ModifiedUpDown4.Value;
                 command.Parameters.Add("@quantity5", MySqlDbType.Int32).Value = ModifiedUpDown5.Value;
                 command.Parameters.Add("@quantity6", MySqlDbType.Int32).Value = ModifiedUpDown6.Value;
-                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count;
+                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count+1;
                 command.Parameters.Add("@matID1", MySqlDbType.Int32).Value = 1;
                 command.Parameters.Add("@matID2", MySqlDbType.Int32).Value = 2;
                 command.Parameters.Add("@matID3", MySqlDbType.Int32).Value = 3;
@@ -425,17 +436,6 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
-                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
-                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Электрическое оборудование";
-                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 4;
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
                 command.CommandText = "insert into material values (@idmat, @description, @Spec_ID, @Map_ID, @OrdSpec_ID)";
                 command.Parameters.Add("@idmat", MySqlDbType.Int32).Value = materialCount.Count + 1;
                 command.Parameters.Add("@Map_ID", MySqlDbType.Int32).Value = 4;
@@ -462,12 +462,23 @@ namespace DBKP
             }
             else if (MaterialUpDown.Value == 18)
             {
+                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
+                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
+                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Система охлаждения";
+                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 5;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
                 command.Parameters.Add("@quantity1", MySqlDbType.Int32).Value = ModifiedUpDown1.Value;
                 command.Parameters.Add("@quantity2", MySqlDbType.Int32).Value = ModifiedUpDown2.Value;
-                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count;
+                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count + 1;
                 command.Parameters.Add("@matID1", MySqlDbType.Int32).Value = 16;
                 command.Parameters.Add("@matID2", MySqlDbType.Int32).Value = 17;
                 if (connection.State == ConnectionState.Closed)
@@ -478,17 +489,6 @@ namespace DBKP
                     connection.Close();
 
                 command.CommandText = "insert into ordspec_structure values (@id2, 2, @quantity2, @specID, @matID2)";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
-                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
-                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Система охлаждения";
-                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 5;
                 if (connection.State == ConnectionState.Closed)
                     connection.Open();
                 command.Connection = connection;
@@ -522,6 +522,17 @@ namespace DBKP
             }
             else if (MaterialUpDown.Value == 9)
             {
+                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
+                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
+                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Микроволновая печь";
+                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 1;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
                 command.CommandText = "insert into ordspec_structure values (@id1, 1, @quantity1, @specID, @matID1);";
                 command.Parameters.Add("@id1", MySqlDbType.Int32).Value = specStrucCount.Count + 1;
                 command.Parameters.Add("@id2", MySqlDbType.Int32).Value = specStrucCount.Count + 2;
@@ -531,7 +542,7 @@ namespace DBKP
                 command.Parameters.Add("@quantity2", MySqlDbType.Int32).Value = ModifiedUpDown2.Value;
                 command.Parameters.Add("@quantity3", MySqlDbType.Int32).Value = ModifiedUpDown3.Value;
                 command.Parameters.Add("@quantity4", MySqlDbType.Int32).Value = ModifiedUpDown4.Value;
-                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count;
+                command.Parameters.Add("@specID", MySqlDbType.Int32).Value = specCount.Count + 1;
                 command.Parameters.Add("@matID1", MySqlDbType.Int32).Value = 7;
                 command.Parameters.Add("@matID2", MySqlDbType.Int32).Value = 8;
                 command.Parameters.Add("@matID3", MySqlDbType.Int32).Value = 12;
@@ -560,17 +571,6 @@ namespace DBKP
                     connection.Close();
 
                 command.CommandText = "insert into ordspec_structure values (@id4, 4, @quantity4, @specID, @matID4)";
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-
-                command.CommandText = "insert into order_specification values (@id, @description, @Spec_ID)";
-                command.Parameters.Add("@id", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
-                command.Parameters.Add("@description", MySqlDbType.VarChar).Value = "Микроволновая печь";
-                command.Parameters.Add("@Spec_ID", MySqlDbType.Int32).Value = 1;
                 if (connection.State == ConnectionState.Closed)
                     connection.Open();
                 command.Connection = connection;
