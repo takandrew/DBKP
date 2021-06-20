@@ -179,47 +179,51 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                if (matMapID == 1)
+                int factTimeSUM = 0;
+                for (int i = 0; i < mapOperTimeList.Count; i++)
+                    factTimeSUM += mapOperTimeList[i] * orderQuantity;
+
+                command.CommandText = "insert into work_log values (@workLogNoteNum, @workLogOrdID, @workLogOperID, @worklogMapID, @workLogFactID, @workLogMatID, @workLogWorkTime, @workLogExitQuantity)";
+                command.Parameters.Add("@workLogNoteNum", MySqlDbType.Int32).Value = worklogNoteNumCount.Count + 1;
+                command.Parameters.Add("@workLogOrdID", MySqlDbType.Int32).Value = OrderIDUpDown.Value;
+                command.Parameters.Add("@workLogOperID", MySqlDbType.Int32).Value = mapOperIDList[mapOperIDList.Count-1];
+                command.Parameters.Add("@worklogMapID", MySqlDbType.Int32).Value = matMapID;
+                command.Parameters.Add("@workLogFactID", MySqlDbType.Int32).Value = mapFactIDList[mapFactIDList.Count-1];
+                command.Parameters.Add("@workLogMatID", MySqlDbType.Int32).Value = orderMatID;
+                command.Parameters.Add("@workLogWorkTime", MySqlDbType.Int32).Value = factTimeSUM;
+                command.Parameters.Add("@workLogExitQuantity", MySqlDbType.Int32).Value = orderQuantity;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
+                command.CommandText = "select Note_Num from used_log";
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                reader = command.ExecuteReader();
+                List<int> usedlogNoteNumCount = new List<int>();
+                while (reader.Read())
+                    usedlogNoteNumCount.Add(reader.GetInt32("Note_Num"));
+                reader.Close();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
+                for (int i = 0; i < ordSpecMatIDList.Count; i++)
                 {
-                    for (int i = 0; i < ordSpecMatIDList.Count; i++)
-                    {
-                        command.CommandText = "insert into work_log values (@workLogNoteNum" + i + ", @workLogOrdID" + i + ", @workLogOperID" + i + ", @worklogMapID" + i + ", @workLogFactID" + i + ", @workLogMatID" + i + ", @workLogWorkTime" + i + ", @workLogExitQuantity" + i + ")";
-                        command.Parameters.Add("@workLogNoteNum" + i + "", MySqlDbType.Int32).Value = worklogNoteNumCount.Count + (i + 1);
-                        command.Parameters.Add("@workLogOrdID" + i + "", MySqlDbType.Int32).Value = OrderIDUpDown.Value;
-                        command.Parameters.Add("@workLogOperID" + i + "", MySqlDbType.Int32).Value = mapOperIDList[i];
-                        command.Parameters.Add("@worklogMapID" + i + "", MySqlDbType.Int32).Value = matMapID;
-                        command.Parameters.Add("@workLogFactID" + i + "", MySqlDbType.Int32).Value = mapFactIDList[i];
-                        command.Parameters.Add("@workLogMatID" + i + "", MySqlDbType.Int32).Value = ordSpecMatIDList[i];
-                        command.Parameters.Add("@workLogWorkTime" + i + "", MySqlDbType.Int32).Value = mapOperTimeList[i];
-                        command.Parameters.Add("@workLogExitQuantity" + i + "", MySqlDbType.Int32).Value = ordSpecQuantityList[i];
-                        if (connection.State == ConnectionState.Closed)
-                            connection.Open();
-                        command.Connection = connection;
-                        command.ExecuteNonQuery();
-                        if (connection.State != ConnectionState.Closed)
-                            connection.Close();
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < ordSpecMatIDList.Count; i++)
-                    {
-                        command.CommandText = "insert into work_log values (@workLogNoteNum" + i + ", @workLogOrdID" + i + ", @workLogOperID" + i + ", @worklogMapID" + i + ", @workLogFactID" + i + ", @workLogMatID" + i + ", @workLogWorkTime" + i + ", @workLogExitQuantity" + i + ")";
-                        command.Parameters.Add("@workLogNoteNum" + i + "", MySqlDbType.Int32).Value = worklogNoteNumCount.Count + (i + 1);
-                        command.Parameters.Add("@workLogOrdID" + i + "", MySqlDbType.Int32).Value = OrderIDUpDown.Value;
-                        command.Parameters.Add("@workLogOperID" + i + "", MySqlDbType.Int32).Value = mapOperIDList[0];
-                        command.Parameters.Add("@worklogMapID" + i + "", MySqlDbType.Int32).Value = matMapID;
-                        command.Parameters.Add("@workLogFactID" + i + "", MySqlDbType.Int32).Value = mapFactIDList[0];
-                        command.Parameters.Add("@workLogMatID" + i + "", MySqlDbType.Int32).Value = ordSpecMatIDList[i];
-                        command.Parameters.Add("@workLogWorkTime" + i + "", MySqlDbType.Int32).Value = mapOperTimeList[0];
-                        command.Parameters.Add("@workLogExitQuantity" + i + "", MySqlDbType.Int32).Value = ordSpecQuantityList[i];
-                        if (connection.State == ConnectionState.Closed)
-                            connection.Open();
-                        command.Connection = connection;
-                        command.ExecuteNonQuery();
-                        if (connection.State != ConnectionState.Closed)
-                            connection.Close();
-                    }
+                    command.CommandText = "insert into used_log values (@usedLogNoteNum" + i + ", @usedLogOrdID" + i + ", @usedLogMatID" + i + ", @usedLogMatQuantity" + i + ")";
+                    command.Parameters.Add("@usedLogNoteNum" + i + "", MySqlDbType.Int32).Value = usedlogNoteNumCount.Count + (i + 1);
+                    command.Parameters.Add("@usedLogOrdID" + i + "", MySqlDbType.Int32).Value = OrderIDUpDown.Value;
+                    command.Parameters.Add("@usedLogMatID" + i + "", MySqlDbType.Int32).Value = ordSpecMatIDList[i];
+                    command.Parameters.Add("@usedLogMatQuantity" + i + "", MySqlDbType.Int32).Value = ordSpecQuantityList[i];
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
+                    command.Connection = connection;
+                    command.ExecuteNonQuery();
+                    if (connection.State != ConnectionState.Closed)
+                        connection.Close();
                 }
             }
             else
