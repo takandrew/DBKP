@@ -43,7 +43,11 @@ namespace DBKP
             this.FactoryOrderButton = new System.Windows.Forms.Button();
             this.WorkLogButton = new System.Windows.Forms.Button();
             this.UsedLogButton = new System.Windows.Forms.Button();
+            this.FinishOrderButton = new System.Windows.Forms.Button();
+            this.FinishOrderUpDown = new System.Windows.Forms.NumericUpDown();
+            this.FinishOrderIDLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.TableGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FinishOrderUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // TableGridView
@@ -61,7 +65,7 @@ namespace DBKP
             // 
             // DisplayTableStorage
             // 
-            this.DisplayTableStorage.Location = new System.Drawing.Point(73, 345);
+            this.DisplayTableStorage.Location = new System.Drawing.Point(73, 407);
             this.DisplayTableStorage.Name = "DisplayTableStorage";
             this.DisplayTableStorage.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableStorage.TabIndex = 1;
@@ -80,7 +84,7 @@ namespace DBKP
             // 
             // DisplayTableFactory
             // 
-            this.DisplayTableFactory.Location = new System.Drawing.Point(73, 384);
+            this.DisplayTableFactory.Location = new System.Drawing.Point(73, 446);
             this.DisplayTableFactory.Name = "DisplayTableFactory";
             this.DisplayTableFactory.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableFactory.TabIndex = 4;
@@ -90,7 +94,7 @@ namespace DBKP
             // 
             // DisplayTableMaterial
             // 
-            this.DisplayTableMaterial.Location = new System.Drawing.Point(73, 423);
+            this.DisplayTableMaterial.Location = new System.Drawing.Point(73, 485);
             this.DisplayTableMaterial.Name = "DisplayTableMaterial";
             this.DisplayTableMaterial.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableMaterial.TabIndex = 5;
@@ -100,7 +104,7 @@ namespace DBKP
             // 
             // DisplayTableConsist
             // 
-            this.DisplayTableConsist.Location = new System.Drawing.Point(73, 462);
+            this.DisplayTableConsist.Location = new System.Drawing.Point(73, 524);
             this.DisplayTableConsist.Name = "DisplayTableConsist";
             this.DisplayTableConsist.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableConsist.TabIndex = 6;
@@ -110,7 +114,7 @@ namespace DBKP
             // 
             // MakeOrder
             // 
-            this.MakeOrder.Location = new System.Drawing.Point(73, 10);
+            this.MakeOrder.Location = new System.Drawing.Point(73, 39);
             this.MakeOrder.Name = "MakeOrder";
             this.MakeOrder.Size = new System.Drawing.Size(428, 33);
             this.MakeOrder.TabIndex = 7;
@@ -120,7 +124,7 @@ namespace DBKP
             // 
             // DisplayTableOrder
             // 
-            this.DisplayTableOrder.Location = new System.Drawing.Point(73, 306);
+            this.DisplayTableOrder.Location = new System.Drawing.Point(73, 368);
             this.DisplayTableOrder.Name = "DisplayTableOrder";
             this.DisplayTableOrder.Size = new System.Drawing.Size(428, 33);
             this.DisplayTableOrder.TabIndex = 8;
@@ -130,7 +134,7 @@ namespace DBKP
             // 
             // OrderMaterialButton
             // 
-            this.OrderMaterialButton.Location = new System.Drawing.Point(73, 49);
+            this.OrderMaterialButton.Location = new System.Drawing.Point(73, 78);
             this.OrderMaterialButton.Name = "OrderMaterialButton";
             this.OrderMaterialButton.Size = new System.Drawing.Size(428, 33);
             this.OrderMaterialButton.TabIndex = 9;
@@ -140,7 +144,7 @@ namespace DBKP
             // 
             // ManageFactoryButton
             // 
-            this.ManageFactoryButton.Location = new System.Drawing.Point(73, 127);
+            this.ManageFactoryButton.Location = new System.Drawing.Point(73, 156);
             this.ManageFactoryButton.Name = "ManageFactoryButton";
             this.ManageFactoryButton.Size = new System.Drawing.Size(428, 33);
             this.ManageFactoryButton.TabIndex = 10;
@@ -150,7 +154,7 @@ namespace DBKP
             // 
             // RemoveMaterialButton
             // 
-            this.RemoveMaterialButton.Location = new System.Drawing.Point(73, 88);
+            this.RemoveMaterialButton.Location = new System.Drawing.Point(73, 117);
             this.RemoveMaterialButton.Name = "RemoveMaterialButton";
             this.RemoveMaterialButton.Size = new System.Drawing.Size(428, 33);
             this.RemoveMaterialButton.TabIndex = 11;
@@ -160,7 +164,7 @@ namespace DBKP
             // 
             // FactoryOrderButton
             // 
-            this.FactoryOrderButton.Location = new System.Drawing.Point(73, 166);
+            this.FactoryOrderButton.Location = new System.Drawing.Point(73, 195);
             this.FactoryOrderButton.Name = "FactoryOrderButton";
             this.FactoryOrderButton.Size = new System.Drawing.Size(428, 33);
             this.FactoryOrderButton.TabIndex = 12;
@@ -170,27 +174,58 @@ namespace DBKP
             // 
             // WorkLogButton
             // 
-            this.WorkLogButton.Location = new System.Drawing.Point(73, 205);
+            this.WorkLogButton.Location = new System.Drawing.Point(73, 234);
             this.WorkLogButton.Name = "WorkLogButton";
             this.WorkLogButton.Size = new System.Drawing.Size(428, 33);
             this.WorkLogButton.TabIndex = 13;
             this.WorkLogButton.Text = "Журнал работы";
             this.WorkLogButton.UseVisualStyleBackColor = true;
+            this.WorkLogButton.Click += new System.EventHandler(this.WorkLogButton_Click);
             // 
             // UsedLogButton
             // 
-            this.UsedLogButton.Location = new System.Drawing.Point(73, 244);
+            this.UsedLogButton.Location = new System.Drawing.Point(73, 273);
             this.UsedLogButton.Name = "UsedLogButton";
             this.UsedLogButton.Size = new System.Drawing.Size(428, 33);
             this.UsedLogButton.TabIndex = 14;
             this.UsedLogButton.Text = "Журнал использования";
             this.UsedLogButton.UseVisualStyleBackColor = true;
+            this.UsedLogButton.Click += new System.EventHandler(this.UsedLogButton_Click);
+            // 
+            // FinishOrderButton
+            // 
+            this.FinishOrderButton.Location = new System.Drawing.Point(602, 540);
+            this.FinishOrderButton.Name = "FinishOrderButton";
+            this.FinishOrderButton.Size = new System.Drawing.Size(428, 29);
+            this.FinishOrderButton.TabIndex = 15;
+            this.FinishOrderButton.Text = "Списать время РЦ и использованную номенклатуру";
+            this.FinishOrderButton.UseVisualStyleBackColor = true;
+            this.FinishOrderButton.Click += new System.EventHandler(this.FinishOrderButton_Click);
+            // 
+            // FinishOrderUpDown
+            // 
+            this.FinishOrderUpDown.Location = new System.Drawing.Point(759, 512);
+            this.FinishOrderUpDown.Name = "FinishOrderUpDown";
+            this.FinishOrderUpDown.Size = new System.Drawing.Size(120, 22);
+            this.FinishOrderUpDown.TabIndex = 16;
+            // 
+            // FinishOrderIDLabel
+            // 
+            this.FinishOrderIDLabel.AutoSize = true;
+            this.FinishOrderIDLabel.Location = new System.Drawing.Point(768, 494);
+            this.FinishOrderIDLabel.Name = "FinishOrderIDLabel";
+            this.FinishOrderIDLabel.Size = new System.Drawing.Size(72, 17);
+            this.FinishOrderIDLabel.TabIndex = 17;
+            this.FinishOrderIDLabel.Text = "ID Заказа";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1125, 507);
+            this.ClientSize = new System.Drawing.Size(1125, 581);
+            this.Controls.Add(this.FinishOrderIDLabel);
+            this.Controls.Add(this.FinishOrderUpDown);
+            this.Controls.Add(this.FinishOrderButton);
             this.Controls.Add(this.UsedLogButton);
             this.Controls.Add(this.WorkLogButton);
             this.Controls.Add(this.FactoryOrderButton);
@@ -210,6 +245,7 @@ namespace DBKP
             this.Text = "БД ";
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.TableGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FinishOrderUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,6 +267,9 @@ namespace DBKP
         private System.Windows.Forms.Button FactoryOrderButton;
         private System.Windows.Forms.Button WorkLogButton;
         private System.Windows.Forms.Button UsedLogButton;
+        private System.Windows.Forms.Button FinishOrderButton;
+        private System.Windows.Forms.NumericUpDown FinishOrderUpDown;
+        private System.Windows.Forms.Label FinishOrderIDLabel;
     }
 }
 

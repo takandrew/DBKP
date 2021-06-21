@@ -1,0 +1,129 @@
+INSERT INTO databasekp.consist(Mat_ID, St_ID, Cont_Quantity) VALUES
+(1, 1, 10),
+(2, 1, 10),
+(3, 1, 10),
+(4, 1, 10),
+(5, 1, 10),
+(6, 1, 10),
+(7, 2, 10),
+(8, 2, 10),
+(9, 3, 10),
+(10, 1, 10),
+(11, 1, 10),
+(12, 2, 10),
+(13, 1, 10),
+(14, 1, 10),
+(15, 1, 10),
+(16, 1, 10),
+(17, 1, 10),
+(18, 2, 10);
+
+
+INSERT INTO databasekp.factory(Fact_ID, Fact_Status, Fact_Time) VALUES
+(1, 'Работает', 1440),
+(2, 'Работает', 1440),
+(3, 'Работает', 1440),
+(4, 'Работает', 1440),
+(5, 'Работает', 1440);
+
+
+INSERT INTO databasekp.material(Mat_ID, Mat_Description, Spec_ID, Map_ID, OrdSpec_ID) VALUES
+(1, 'Трансформатор', NULL, NULL, NULL),
+(2, 'Магнетрон', NULL, NULL, NULL),
+(3, 'Лампа', NULL, NULL, NULL),
+(4, 'Камера', NULL, NULL, NULL),
+(5, 'Дверка', NULL, NULL, NULL),
+(6, 'Вращающийся столик', NULL, NULL, NULL),
+(7, 'Корпус', 2, 2, 2),
+(8, 'Волновод', 3, 5, 3),
+(9, 'Микроволновая печь', 1, 1, 1),
+(10, 'Щит из пластика', NULL, NULL, NULL),
+(11, 'Труба', NULL, NULL, NULL),
+(12, 'Электрическое оборудование', 4, 4, 4),
+(13, 'Провода', NULL, NULL, NULL),
+(14, 'Конденсатор', NULL, NULL, NULL),
+(15, 'Резистор', NULL, NULL, NULL),
+(16, 'Вентилятор', NULL, NULL, NULL),
+(17, 'Двигатель вентилятора', NULL, NULL, NULL),
+(18, 'Система охлаждения', 5, 3, 5);
+
+
+INSERT INTO databasekp.storage(St_ID, St_Description) VALUES
+(1, 'сырье и материалы'),
+(2, 'цеховой'),
+(3, 'готовая продукция');
+
+INSERT INTO databasekp.map_structure(Oper_ID, Oper_Time, Next_Oper_ID, Map_ID, Fact_ID) VALUES
+(1, 20, 2, 1, 1),
+(2, 40, 3, 1, 2),
+(3, 35, 4, 1, 3),
+(4, 10, 5, 1, 4),
+(5, 30, 0, 1, 5),
+(6, 20, 0, 2, 1),
+(7, 40, 0, 3, 2),
+(8, 35, 0, 4, 3),
+(9, 10, 0, 5, 4);
+
+
+INSERT INTO databasekp.technological_map(Map_ID, Map_Description) VALUES
+(1, 'Микроволновая печь'),
+(2, 'Корпус'),
+(3, 'Система охлаждения'),
+(4, 'Электрическое оборудование'),
+(5, 'Волновод');
+
+INSERT INTO databasekp.specification(Spec_ID, Spec_Description) VALUES
+(1, 'Микроволновая печь'),
+(2, 'Корпус'),
+(3, 'Волновод'),
+(4, 'Электронное оборудование'),
+(5, 'Система охлаждения');
+
+
+INSERT INTO databasekp.specification_structure(SpecStruc_ID, Operation_ID, SpecStruc_Quantity, Spec_ID, Mat_ID) VALUES
+(1, 1, 1, 1, 7),
+(2, 2, 1, 1, 18),
+(3, 3, 1, 1, 12),
+(4, 4, 1, 1, 8),
+(5, 5, 1, 1, 9),
+(6, 1, 1, 2, 4),
+(7, 2, 1, 2, 5),
+(8, 3, 1, 2, 6),
+(9, 1, 1, 3, 10),
+(10, 2, 1, 3, 11),
+(11, 1, 1, 4, 1),
+(12, 2, 1, 4, 2),
+(13, 3, 1, 4, 3),
+(14, 4, 1, 4, 13),
+(15, 5, 1, 4, 14),
+(16, 6, 1, 4, 15),
+(17, 1, 1, 5, 16),
+(18, 2, 1, 5, 17);
+
+INSERT INTO databasekp.order_specification(OrdSpec_ID, OrdSpec_Description, Spec_ID) VALUES
+(1, 'Микроволновая печь', 1),
+(2, 'Корпус', 2),
+(3, 'Волновод', 3),
+(4, 'Электронное оборудование', 4),
+(5, 'Система охлаждения', 5);
+
+
+INSERT INTO databasekp.ordspec_structure(OrdSpecStruc_ID, Operation_ID, OrdSpecStruc_Quantity, OrdSpec_ID, Mat_ID) VALUES
+(1, 1, 1, 1, 7),
+(2, 2, 1, 1, 18),
+(3, 3, 1, 1, 12),
+(4, 4, 1, 1, 8),
+(5, 5, 1, 1, 9),
+(6, 1, 1, 2, 4),
+(7, 2, 1, 2, 5),
+(8, 3, 1, 2, 6),
+(9, 1, 1, 3, 10),
+(10, 2, 1, 3, 11),
+(11, 1, 1, 4, 1),
+(12, 2, 1, 4, 2),
+(13, 3, 1, 4, 3),
+(14, 4, 1, 4, 13),
+(15, 5, 1, 4, 14),
+(16, 6, 1, 4, 15),
+(17, 1, 1, 5, 16),
+(18, 2, 1, 5, 17);

@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -179,9 +174,9 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
-                int factTimeSUM = 0;
-                for (int i = 0; i < mapOperTimeList.Count; i++)
-                    factTimeSUM += mapOperTimeList[i] * orderQuantity;
+                //int factTimeSUM = 0;
+                //for (int i = 0; i < mapOperTimeList.Count; i++)
+                //    factTimeSUM += mapOperTimeList[i] * orderQuantity;
 
                 command.CommandText = "insert into work_log values (@workLogNoteNum, @workLogOrdID, @workLogOperID, @worklogMapID, @workLogFactID, @workLogMatID, @workLogWorkTime, @workLogExitQuantity)";
                 command.Parameters.Add("@workLogNoteNum", MySqlDbType.Int32).Value = worklogNoteNumCount.Count + 1;
@@ -190,7 +185,7 @@ namespace DBKP
                 command.Parameters.Add("@worklogMapID", MySqlDbType.Int32).Value = matMapID;
                 command.Parameters.Add("@workLogFactID", MySqlDbType.Int32).Value = mapFactIDList[mapFactIDList.Count-1];
                 command.Parameters.Add("@workLogMatID", MySqlDbType.Int32).Value = orderMatID;
-                command.Parameters.Add("@workLogWorkTime", MySqlDbType.Int32).Value = factTimeSUM;
+                command.Parameters.Add("@workLogWorkTime", MySqlDbType.Int32).Value = mapOperIDList[mapOperIDList.Count-1]*orderQuantity;
                 command.Parameters.Add("@workLogExitQuantity", MySqlDbType.Int32).Value = orderQuantity;
                 if (connection.State == ConnectionState.Closed)
                     connection.Open();
@@ -217,7 +212,7 @@ namespace DBKP
                     command.Parameters.Add("@usedLogNoteNum" + i + "", MySqlDbType.Int32).Value = usedlogNoteNumCount.Count + (i + 1);
                     command.Parameters.Add("@usedLogOrdID" + i + "", MySqlDbType.Int32).Value = OrderIDUpDown.Value;
                     command.Parameters.Add("@usedLogMatID" + i + "", MySqlDbType.Int32).Value = ordSpecMatIDList[i];
-                    command.Parameters.Add("@usedLogMatQuantity" + i + "", MySqlDbType.Int32).Value = ordSpecQuantityList[i];
+                    command.Parameters.Add("@usedLogMatQuantity" + i + "", MySqlDbType.Int32).Value = ordSpecQuantityList[i]*orderQuantity;
                     if (connection.State == ConnectionState.Closed)
                         connection.Open();
                     command.Connection = connection;

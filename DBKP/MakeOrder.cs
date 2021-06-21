@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -283,6 +278,15 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
+                command.CommandText = "insert into consist values (@idmat, @idst, 0)";
+                command.Parameters.Add("@idst", MySqlDbType.Int32).Value = 2;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
                 command.CommandText = "INSERT INTO `order` VALUES (@idorder, @status, @dateTime, @quantity, @material)";
                 command.Parameters.Add("@idorder", MySqlDbType.Int32).Value = orderCount.Count + 1;
                 command.Parameters.Add("@status", MySqlDbType.VarChar).Value = "Создан";
@@ -336,6 +340,15 @@ namespace DBKP
                 command.Parameters.Add("@idmat", MySqlDbType.Int32).Value = materialCount.Count + 1;
                 command.Parameters.Add("@Map_ID", MySqlDbType.Int32).Value = 5;
                 command.Parameters.Add("@OrdSpec_ID", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
+                command.CommandText = "insert into consist values (@idmat, @idst, 0)";
+                command.Parameters.Add("@idst", MySqlDbType.Int32).Value = 2;
                 if (connection.State == ConnectionState.Closed)
                     connection.Open();
                 command.Connection = connection;
@@ -447,6 +460,15 @@ namespace DBKP
                 if (connection.State != ConnectionState.Closed)
                     connection.Close();
 
+                command.CommandText = "insert into consist values (@idmat, @idst, 0)";
+                command.Parameters.Add("@idst", MySqlDbType.Int32).Value = 2;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
                 command.CommandText = "INSERT INTO `order` VALUES (@idorder, @status, @dateTime, @quantity, @material)";
                 command.Parameters.Add("@idorder", MySqlDbType.Int32).Value = orderCount.Count + 1;
                 command.Parameters.Add("@status", MySqlDbType.VarChar).Value = "Создан";
@@ -500,6 +522,15 @@ namespace DBKP
                 command.Parameters.Add("@idmat", MySqlDbType.Int32).Value = materialCount.Count + 1;
                 command.Parameters.Add("@Map_ID", MySqlDbType.Int32).Value = 3;
                 command.Parameters.Add("@OrdSpec_ID", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
+                command.CommandText = "insert into consist values (@idmat, @idst, 0)";
+                command.Parameters.Add("@idst", MySqlDbType.Int32).Value = 2;
                 if (connection.State == ConnectionState.Closed)
                     connection.Open();
                 command.Connection = connection;
@@ -582,6 +613,15 @@ namespace DBKP
                 command.Parameters.Add("@idmat", MySqlDbType.Int32).Value = materialCount.Count + 1;
                 command.Parameters.Add("@Map_ID", MySqlDbType.Int32).Value = 1;
                 command.Parameters.Add("@OrdSpec_ID", MySqlDbType.Int32).Value = ordspecCount.Count + 1;
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+
+                command.CommandText = "insert into consist values (@idmat, @idst, 0)";
+                command.Parameters.Add("@idst", MySqlDbType.Int32).Value = 3;
                 if (connection.State == ConnectionState.Closed)
                     connection.Open();
                 command.Connection = connection;
